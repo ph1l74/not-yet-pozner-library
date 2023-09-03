@@ -1,7 +1,7 @@
-export type STATE_TYPE = {
+export type DATA_STORE_TYPE = {
   isLoading: boolean;
 };
 
-export const INIT_STATE: STATE_TYPE = {
+export const DATA_INIT_STATE: DATA_STORE_TYPE = {
   isLoading: false,
 };

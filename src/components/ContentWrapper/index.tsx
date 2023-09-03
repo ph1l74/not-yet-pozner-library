@@ -1,4 +1,4 @@
-import { STATE_TYPE } from "@/constants";
+import { DATA_STORE_TYPE } from "@/constants";
 import { useSelector } from "react-redux";
 interface ContentWrapperProps {
   children?: React.ReactNode;
@@ -6,13 +6,13 @@ interface ContentWrapperProps {
 
 const ContentWrapper: React.FC<ContentWrapperProps> = ({ children }) => {
   const isLoading = useSelector(
-    (state: { store: STATE_TYPE }) => state.store.isLoading
+    (state: { data: DATA_STORE_TYPE }) => state.data.isLoading
   );
 
   if (children)
     return (
       <div>
-        {children} {isLoading ? 'loading' :  'loaded'}
+        {children} {isLoading ? "loading" : "loaded"}
       </div>
     );
   return null;
