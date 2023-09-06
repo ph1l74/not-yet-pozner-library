@@ -2,8 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: "PT Mono";
+    src: url('/assets/fonts/pt-mono_regular.woff') format('woff'),
+        url('/assets/fonts/pt-mono_regular.woff2') format('woff2'),
+        url('/assets/fonts/pt-mono_bold.woff') format('woff'),
+        url('/assets/fonts/pt-mono_bold.woff2') format('woff2');
+}
+
 @layer components {
     .enpl-main {
-        @apply h-screen w-full grid grid-cols-12 font-mono
+        @apply h-screen w-full grid grid-cols-12 font-ptMono grid-rows-2
     }
 }

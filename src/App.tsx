@@ -2,21 +2,22 @@ import AdminPage from "@/pages/AdminPage";
 import { Provider } from "react-redux";
 import store from "@/store";
 import Header from "@/components/Header";
+import { BrowserRouter } from "react-router-dom";
 import ContentWrapper from "@/components/ContentWrapper";
 
 function App() {
   return (
     <Provider store={store}>
-      <div className="enpl-main">
-        <div></div>
-        <div className="col-span-10">
+      <BrowserRouter>
+        <div className="enpl-main">
           <Header />
+          <div></div>
           <ContentWrapper>
             <AdminPage />
           </ContentWrapper>
+          <div></div>
         </div>
-        <div></div>
-      </div>
+      </BrowserRouter>
     </Provider>
   );
 }
