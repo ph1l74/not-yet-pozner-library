@@ -16,10 +16,11 @@ const Navigation = () => {
         {cats.map((cat, index) => {
           return (
             <NavigationMenuItem key={`${cat.key}_${index}`}>
-              <NavLink to={`/${cat.key}`}>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  {cat.title}
-                </NavigationMenuLink>
+              <NavLink
+                to={`/${cat.key}`}
+                className={navigationMenuTriggerStyle()}
+              >
+                {cat.title}
               </NavLink>
             </NavigationMenuItem>
           );
