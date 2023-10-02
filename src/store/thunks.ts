@@ -24,13 +24,18 @@ export const getAllBooks = createAsyncThunk<
       store: DATA_STORE_TYPE;
     };
   }
->('dataSlice/getAllBooks', async (_, { getState }) => {
+>("dataSlice/getAllBooks", async (_, { getState }) => {
+  console.log(1);
   const { store } = getState();
+  console.log(store);
   if (store.isLoading) {
-    const response = await getAllDataByColName(BD_COLLECTIONS.books).then((r) => {
-        const data = r.map((doc) => ({[doc.id]: doc.data()}))
+    const response = await getAllDataByColName(BD_COLLECTIONS.books).then(
+      (r) => {
+        console.log(r);
+        const data = r.map((doc) => ({ [doc.id]: doc.data() }));
         return data;
-    });
+      }
+    );
     return response;
   }
   return;

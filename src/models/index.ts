@@ -1,11 +1,14 @@
-export interface InterviewInfo {
-  date: Date;
-  guest: string;
+export interface Author {
+  name: string;
 }
 
-export interface BookInfo {
+export interface Book {
   name: string;
-  author: string;
-  interview: InterviewInfo;
-  tags: string[];
+  author: Author;
+}
+
+export interface Interview {
+  date: Date;
+  guest: string;
+  books: Book[];
 }

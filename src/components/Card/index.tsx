@@ -1,16 +1,14 @@
-import { BookInfo } from "@/models";
+import { Book } from "@/models";
 
 interface CardType {
-  info: BookInfo;
+  info: Book;
 }
 
 export const Card: React.FC<CardType> = ({ info }) => {
   return (
     <div>
       <div>{info.name}</div>
-      <div>{info.author}</div>
-      <div>{info.interview.guest}</div>
-      <div>{info?.tags}</div>
+      <div>{info.author.name}</div>
     </div>
   );
 };
