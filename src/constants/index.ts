@@ -1,9 +1,11 @@
 export type DATA_STORE_TYPE = {
   isLoading: boolean;
+  data: unknown | null;
 };
 
 export const DATA_INIT_STATE: DATA_STORE_TYPE = {
   isLoading: false,
+  data: null
 };
 
 type Category = {
@@ -19,5 +21,19 @@ export const CATEGORIES: Category[] = [
   {
     key: "authors",
     title: "Авторы",
-  }
+  },
+  {
+    key: "interviews",
+    title: "Интервью",
+  },
 ];
+
+type Collections = {
+  [key: string]: string;
+};
+
+export const BD_COLLECTIONS: Collections = {
+  authors: "authors",
+  books: "books",
+  interviews: "interviews",
+};

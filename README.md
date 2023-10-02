@@ -15,6 +15,12 @@ VITE_APP_ID="%VITE_APP_ID%"
 VITE_MEASUREMENT_ID="%VITE_MEASUREMENT_ID%"
 ```
 
+## Schemes
+
+### Firebase Structure
+
+![Firebase Structure](/public/assets/images/scheme2.png "Firebase Structure")
+
 ## Issues
 
 ### tsconfig.node.json ts errors
