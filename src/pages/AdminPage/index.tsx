@@ -1,6 +1,7 @@
 import ContentWrapper from "@/components/ContentWrapper";
 import { useTypedDispatch } from "@/store";
 import { getAllBooks } from "@/store/thunks";
+import { Sidebar } from "@/components/Sidebar";
 import { useEffect } from "react";
 
 const AdminPage: React.FC = () => {
@@ -8,7 +9,11 @@ const AdminPage: React.FC = () => {
   useEffect(() => {
     asyncDispatch(getAllBooks);
   }, []);
-  return <ContentWrapper>smth</ContentWrapper>;
+  return (
+    <ContentWrapper>
+      <Sidebar />
+    </ContentWrapper>
+  );
 };
 
 export default AdminPage;

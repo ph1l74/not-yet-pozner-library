@@ -3,4 +3,20 @@
     background-position: center;
     height: 100%;
     background-repeat: no-repeat;
+    position: relative;
+}
+
+
+.enpl-header-logo::before {
+    position: absolute;
+    display: inline-block;
+    content: '';
+    width: 25px;
+    height: 25px;
+    left: 15%;
+    top: 25%;
+    border-radius: 50%;
+    background-color: white;
+    opacity: 85%;
+    filter: blur(1rem);
 }

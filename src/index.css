@@ -1,9 +1,11 @@
+@import url(/app/globals.css);
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
     .enpl-main {
-        @apply h-screen w-full grid grid-cols-12 grid-rows-2
+        @apply h-screen w-full grid grid-cols-12
     }
 }
