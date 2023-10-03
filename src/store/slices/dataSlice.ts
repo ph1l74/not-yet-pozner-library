@@ -6,8 +6,8 @@ const dataSlice = createSlice({
   name: "dataSlice",
   initialState: DATA_INIT_STATE,
   reducers: {
-    setIsLoading(data: DATA_STORE_TYPE, action) {
-      data.isLoading = action.payload;
+    setIsLoading(state: DATA_STORE_TYPE, action) {
+      state.isLoading = action.payload;
     },
   },
   extraReducers: (builder) => {

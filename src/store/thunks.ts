@@ -1,6 +1,6 @@
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase";
-import { BD_COLLECTIONS, DATA_STORE_TYPE } from "@/constants";
+import { BD_COLLECTIONS } from "@/constants";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const getAllDataByColName = async (collectionName: string) => {
@@ -16,27 +16,19 @@ const getDataByDocName = async (collectionName: string, docName: string) => {
   return data;
 };
 
-export const getAllBooks = createAsyncThunk<
-  unknown,
-  void,
-  {
-    state: {
-      store: DATA_STORE_TYPE;
-    };
+export const getAllBooks = createAsyncThunk(
+  "dataSlice/getAllBooks",
+  async (_, { getState }) => {
+    const { data } = getState();
+    if (data.isLoading) {
+      const response = await getAllDataByColName(BD_COLLECTIONS.books).then(
+        (r) => {
+          const remoteData = r.map((doc) => ({ [doc.id]: doc.data() }));
+          return remoteData;
+        }
+      );
+      return response;
+    }
+    return;
   }
->("dataSlice/getAllBooks", async (_, { getState }) => {
-  console.log(1);
-  const { store } = getState();
-  console.log(store);
-  if (store.isLoading) {
-    const response = await getAllDataByColName(BD_COLLECTIONS.books).then(
-      (r) => {
-        console.log(r);
-        const data = r.map((doc) => ({ [doc.id]: doc.data() }));
-        return data;
-      }
-    );
-    return response;
-  }
-  return;
-});
+);

@@ -7,7 +7,7 @@ import { useEffect } from "react";
 const AdminPage: React.FC = () => {
   const asyncDispatch = useTypedDispatch();
   useEffect(() => {
-    asyncDispatch(getAllBooks);
+    asyncDispatch(getAllBooks());
   }, []);
   return (
     <ContentWrapper>
