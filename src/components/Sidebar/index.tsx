@@ -26,15 +26,15 @@ const NavigationList: React.FC<NavigationListType> = (props) => {
 
 export const Sidebar = () => {
   return (
-    <div className="h-screen w-screen ">
+    <div className="h-screen w-screen">
       <aside
         id="sidebar"
-        className="fixed  h-screen w-64 transition-transform"
+        className="fixed h-screen w-64 transition-transform"
         aria-label="Sidebar"
       >
         <div className="flex h-full flex-col overflow-y-auto">
           <NavigationList>
-            <NavigationLinkItem to="/books">Books</NavigationLinkItem>
+            <NavigationLinkItem to="/admin/books">Books</NavigationLinkItem>
           </NavigationList>
           <div className="mt-auto flex">
             <div className="flex w-full justify-between"></div>

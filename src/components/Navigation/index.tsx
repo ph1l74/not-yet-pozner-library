@@ -10,7 +10,7 @@ import {
 const Navigation = () => {
   const cats = CATEGORIES;
   return (
-    <NavigationMenu>
+    <NavigationMenu className="flex flex-wrap items-center text-base justify-center">
       <NavigationMenuList>
         {cats.map((cat, index) => {
           return (
