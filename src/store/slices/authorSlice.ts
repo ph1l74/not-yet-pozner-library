@@ -4,7 +4,7 @@ import { getAllDataByColName } from "@/store/utils";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Author } from "@/models";
 
-const getAllEntries = createAsyncThunk<
+export const getAllEntries = createAsyncThunk<
   Author[],
   undefined,
   { rejectValue: string }

@@ -7,7 +7,7 @@ import { getAllDataByColName } from "@/store/utils";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Interview } from "@/models";
 
-const getAllEntries = createAsyncThunk<
+export const getAllEntries = createAsyncThunk<
   Interview[],
   undefined,
   { rejectValue: string }

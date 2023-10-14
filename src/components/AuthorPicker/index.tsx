@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
-
+import { getAllEntries as getAllAuthors } from "@/store/slices/authorSlice";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,33 +15,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
-const authors = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-];
+import { useTypedDispatch, useTypedSelector } from "@/store";
 
 export const AuthorPicker = () => {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
+  const authors = useTypedSelector((data) => data.authors.authors);
+  const asyncDispatch = useTypedDispatch();
+
+  React.useEffect(() => {
+    asyncDispatch(getAllAuthors());
+  }, [asyncDispatch]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -50,22 +34,30 @@ export const AuthorPicker = () => {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-[300px] justify-between"
         >
           {value
-            ? authors.find((author) => author.value === value)?.label
-            : "Select framework..."}
+            ? authors.find((author) => author.name === value)?.name
+            : "Выберите автора..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-[300px] p-0">
         <Command>
-          <CommandInput placeholder="Search framework..." />
-          <CommandEmpty>No framework found.</CommandEmpty>
+          <CommandInput placeholder="Выберите автора..." />
+          <CommandEmpty>
+            <CommandItem
+              onSelect={(currentValue) => {
+                setValue(currentValue === value ? "" : currentValue);
+              }}
+            >
+              Создать {value}
+            </CommandItem>
+          </CommandEmpty>
           <CommandGroup>
             {authors.map((author) => (
               <CommandItem
-                key={author.value}
+                key={author.id}
                 onSelect={(currentValue) => {
                   setValue(currentValue === value ? "" : currentValue);
                   setOpen(false);
@@ -74,10 +66,10 @@ export const AuthorPicker = () => {
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4",
-                    value === author.value ? "opacity-100" : "opacity-0"
+                    value === author.name ? "opacity-100" : "opacity-0"
                   )}
                 />
-                {author.label}
+                {author.name}
               </CommandItem>
             ))}
           </CommandGroup>

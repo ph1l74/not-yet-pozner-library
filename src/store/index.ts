@@ -2,7 +2,11 @@ import { AnyAction, combineReducers, configureStore } from "@reduxjs/toolkit";
 import thunkMiddleware, { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import { booksSliceReducer } from "./slices/bookSlice";
-import { BOOKS_STATE_TYPE } from "@/constants";
+import {
+  AUTHOR_STATE_TYPE,
+  BOOKS_STATE_TYPE,
+  INTERVIEW_STATE_TYPE,
+} from "@/constants";
 import { authorSliceReducer } from "./slices/authorSlice";
 import { interviewSliceReducer } from "./slices/interviewSlice";
 
@@ -20,7 +24,11 @@ const store = configureStore({
 });
 
 export type TypedDispatch = ThunkDispatch<
-  { store: BOOKS_STATE_TYPE },
+  {
+    books: BOOKS_STATE_TYPE;
+    authors: AUTHOR_STATE_TYPE;
+    interviews: INTERVIEW_STATE_TYPE;
+  },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   any,
   AnyAction
@@ -34,6 +42,6 @@ export type TypedThunk<ReturnType = void> = ThunkAction<
 >;
 
 export const useTypedDispatch = () => useDispatch<TypedDispatch>();
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export default store;

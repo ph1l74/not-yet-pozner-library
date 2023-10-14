@@ -1,5 +1,6 @@
 export interface Author {
   name: string;
+  id: string;
 }
 
 export interface Book {
