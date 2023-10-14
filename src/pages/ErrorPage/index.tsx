@@ -11,13 +11,16 @@ type DescriptionType = {
 
 export const ErrorPage: React.FC<ErrorPageType> = (props) => {
   const descriptions: DescriptionType = {
-    404: "Такой страницы у нас нет, поэтому советуем вернуться на главную.",
+    404: "Такой страницы у нас нет, поэтому советуем вернуться на главную или перейти на предыдущую страницу.",
   };
 
   const navigate = useNavigate();
 
-  const buttonHandler = () => {
+  const buttonHomeHandler = () => {
     navigate("/");
+  };
+  const buttonBackHandler = () => {
+    navigate(-1);
   };
 
   return (
@@ -28,8 +31,11 @@ export const ErrorPage: React.FC<ErrorPageType> = (props) => {
             Упс, ошибка {props.error}.
           </h1>
           <p className="mb-8 leading-relaxed">{descriptions[props.error]}</p>
-          <div className="flex justify-center">
-            <Button className="justify-between" onClick={buttonHandler}>
+          <div className="flex justify-center gap-4">
+            <Button className="justify-between" onClick={buttonBackHandler}>
+              Назад
+            </Button>
+            <Button className="justify-between" onClick={buttonHomeHandler}>
               На главную
             </Button>
           </div>

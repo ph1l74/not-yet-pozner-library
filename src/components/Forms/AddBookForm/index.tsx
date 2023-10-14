@@ -11,7 +11,6 @@ import { Label } from "@/components/ui/label";
 import { AuthorPicker } from "@/components/AuthorPicker";
 
 export const AddBookForm = () => {
-    console.log(1);
   return (
     <Card className="w-[350px]">
       <CardHeader>

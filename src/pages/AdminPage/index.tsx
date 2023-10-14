@@ -1,10 +1,9 @@
 // import ContentWrapper from "@/components/ContentWrapper";
 import { useTypedDispatch } from "@/store";
 import { getAllEntries as getAllBooks } from "@/store/slices/bookSlice";
-import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
-import { AddBookForm } from "@/components/Forms/AddBookForm";
 import { Sidebar } from "@/components/Sidebar";
+import { Outlet } from "react-router-dom";
 
 const AdminPage: React.FC = () => {
   const asyncDispatch = useTypedDispatch();
@@ -14,11 +13,8 @@ const AdminPage: React.FC = () => {
   return (
     <div className="flex flex-row">
       <Sidebar />
-      <div className="p-2">
-        <Routes>
-          <Route path="books" element={<AddBookForm />} />
-          {/* <Route path="authors" element={<DashboardTasks />} /> */}
-        </Routes>
+      <div className="px-8">
+        <Outlet />
       </div>
     </div>
   );

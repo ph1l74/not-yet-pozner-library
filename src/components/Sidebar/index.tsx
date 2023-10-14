@@ -26,9 +26,11 @@ const NavigationList: React.FC<NavigationListType> = (props) => {
 
 export const Sidebar = () => {
   return (
-    <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+    <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800 w-48 rounded-lg">
       <NavigationList>
         <NavigationLink to="books">Books</NavigationLink>
+        <NavigationLink to="authors">Authors</NavigationLink>
+        <NavigationLink to="interviews">Interviews</NavigationLink>
       </NavigationList>
     </div>
   );
