@@ -1,4 +1,3 @@
-import { AddBookForm } from "@/components/Forms/AddBookForm";
 import AdminPage from "@/pages/AdminPage";
 import { ErrorPage } from "@/pages/ErrorPage";
 import { MainPage } from "@/pages/MainPage";
@@ -13,10 +12,7 @@ export const MainRouter = () => {
         <Route path="interviews" />
         <Route path="analytics" />
       </Route>
-      <Route path="admin/" element={<AdminPage />}>
-        <Route path="books" element={<AddBookForm />} />
-        {/* <Route path="authors" element={<DashboardTasks />} /> */}
-      </Route>
+      <Route path="admin/" element={<AdminPage />} />
     </Routes>
   );
 };

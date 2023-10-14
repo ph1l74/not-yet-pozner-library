@@ -1,9 +1,9 @@
-type NavigationLinkItemType = {
+type NavigationLinkType = {
   to: string;
   children: React.ReactNode;
 };
 
-const NavigationLinkItem: React.FC<NavigationLinkItemType> = (props) => {
+const NavigationLink: React.FC<NavigationLinkType> = (props) => {
   return (
     <li>
       <a
@@ -26,21 +26,10 @@ const NavigationList: React.FC<NavigationListType> = (props) => {
 
 export const Sidebar = () => {
   return (
-    <div className="h-screen w-screen">
-      <aside
-        id="sidebar"
-        className="fixed h-screen w-64 transition-transform"
-        aria-label="Sidebar"
-      >
-        <div className="flex h-full flex-col overflow-y-auto">
-          <NavigationList>
-            <NavigationLinkItem to="/admin/books">Books</NavigationLinkItem>
-          </NavigationList>
-          <div className="mt-auto flex">
-            <div className="flex w-full justify-between"></div>
-          </div>
-        </div>
-      </aside>
+    <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+      <NavigationList>
+        <NavigationLink to="books">Books</NavigationLink>
+      </NavigationList>
     </div>
   );
 };

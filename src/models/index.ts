@@ -4,6 +4,7 @@ export interface Author {
 
 export interface Book {
   name: string;
+  year: number;
   author: Author;
 }
 
