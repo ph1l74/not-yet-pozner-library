@@ -9,10 +9,31 @@ export const getAllEntries = createAsyncThunk<
   undefined,
   { rejectValue: string }
 >("authorSlice/getAllEntries", async (_, { rejectWithValue }) => {
-  const response = await getAllDataByColName(BD_COLLECTIONS.authors).then((r) => {
-    const remoteData = r.map((doc) => ({ [doc.id]: doc.data() }));
-    return remoteData;
-  });
+  const response = await getAllDataByColName(BD_COLLECTIONS.authors).then(
+    (r) => {
+      const remoteData = r.map((doc) => ({ ...doc.data(), ...{ id: doc.id } }));
+      return remoteData;
+    }
+  );
+
+  if (!response) {
+    return rejectWithValue("Server Error!");
+  }
+
+  return response;
+});
+
+export const getEntryById = createAsyncThunk<
+  Author,
+  undefined,
+  { rejectValue: string }
+>("authorSlice/getEntryById", async (id, { rejectWithValue }) => {
+  const response = await getDataByDocName(BD_COLLECTIONS.authors, id).then(
+    (doc) => {
+      const remoteData = { ...doc.data(), ...{ id: doc.id } };
+      return remoteData;
+    }
+  );
 
   if (!response) {
     return rejectWithValue("Server Error!");
