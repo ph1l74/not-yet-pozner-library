@@ -1,6 +1,9 @@
 import { FC, useEffect, useState } from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { getAllEntries as getAllAuthors } from "@/store/slices/authorSlice";
+import {
+  addEntry as addAuthor,
+  getAllEntries as getAllAuthors,
+} from "@/store/slices/authorSlice";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,6 +29,7 @@ type AuthorPickerType = {
 export const AuthorPicker: FC<AuthorPickerType> = ({ form }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+  const [input, setInput] = useState("");
   const asyncDispatch = useTypedDispatch();
   const authors = useTypedSelector((data) => data.authors.authors);
 
@@ -33,8 +37,22 @@ export const AuthorPicker: FC<AuthorPickerType> = ({ form }) => {
     asyncDispatch(getAllAuthors());
   }, [asyncDispatch]);
 
-  const onChange = (value: string) => {
+  const onFormChange = (value: string) => {
     form.setValue("author", value ? `/authors/${value}` : "");
+  };
+
+  const onInputChange = (value: string) => {
+    setInput(value);
+  };
+
+  const onCreate = () => {
+    asyncDispatch(addAuthor({ name: input })).then(() => {
+      setValue("");
+      setInput("");
+      onFormChange("");
+      setOpen(false);
+      asyncDispatch(getAllAuthors());
+    });
   };
 
   return (
@@ -55,18 +73,17 @@ export const AuthorPicker: FC<AuthorPickerType> = ({ form }) => {
         </PopoverTrigger>
         <PopoverContent className="w-[300px] p-0">
           <Command>
-            <CommandInput placeholder="Выберите автора..." />
-            <CommandEmpty>
-              <CommandGroup>
-                {value}
-                <CommandItem
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                  }}
-                >
-                  <Check className="mr-2 h-4 w-4" />
-                </CommandItem>
-              </CommandGroup>
+            <CommandInput
+              placeholder="Выберите автора..."
+              onValueChange={onInputChange}
+            />
+            <CommandEmpty className="p-0">
+              <div
+                className="cursor-pointer text-center hover:bg-slate-900 p-3 select-none text-sm"
+                onClick={() => onCreate()}
+              >
+                Добавить <strong>{input}</strong>
+              </div>
             </CommandEmpty>
             <CommandGroup>
               {authors.map((author) => (
@@ -74,7 +91,7 @@ export const AuthorPicker: FC<AuthorPickerType> = ({ form }) => {
                   key={author.name.toLocaleLowerCase()}
                   onSelect={() => {
                     setValue(value === author.id ? "" : author.id);
-                    onChange(value === author.id ? "" : author.id);
+                    onFormChange(value === author.id ? "" : author.id);
                     setOpen(false);
                   }}
                 >

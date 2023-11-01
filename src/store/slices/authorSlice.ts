@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AUTHOR_STATE_INIT, BD_COLLECTIONS } from "@/constants";
-import { getAllDataByColName } from "@/store/utils";
+import { addDocumentInCollection, getAllDataByColName } from "@/store/utils";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Author } from "@/models";
 
@@ -11,32 +11,32 @@ export const getAllEntries = createAsyncThunk<
 >("authorSlice/getAllEntries", async (_, { rejectWithValue }) => {
   const response = await getAllDataByColName(BD_COLLECTIONS.authors).then(
     (r) => {
-      const remoteData = r.map((doc) => ({ ...doc.data(), ...{ id: doc.id } }));
+      const remoteData = r.map((doc) => {
+        const data = doc.data();
+        return { id: doc.id, name: data.name };
+      });
+
       return remoteData;
     }
   );
 
   if (!response) {
-    return rejectWithValue("Server Error!");
+    return rejectWithValue(
+      "Не удалось получить все записи. Что-то пошло не так..."
+    );
   }
 
   return response;
 });
 
-export const getEntryById = createAsyncThunk<
-  Author,
-  undefined,
-  { rejectValue: string }
->("authorSlice/getEntryById", async (id, { rejectWithValue }) => {
-  const response = await getDataByDocName(BD_COLLECTIONS.authors, id).then(
-    (doc) => {
-      const remoteData = { ...doc.data(), ...{ id: doc.id } };
-      return remoteData;
-    }
-  );
+type AddEntryType = {name: string};
 
-  if (!response) {
-    return rejectWithValue("Server Error!");
+
+export const addEntry = createAsyncThunk<Author, AddEntryType , { rejectValue: string }>('authorSlice/addEntry', async (data, {rejectWithValue}) => {
+  const response = await addDocumentInCollection(BD_COLLECTIONS.authors, data);
+  
+  if(!response) {
+    return rejectWithValue("Не удалось добавить запись. Что-то пошло не так...")
   }
 
   return response;
