@@ -20,14 +20,25 @@ import { Input } from "@/components/ui/input";
 import { AuthorPicker } from "@/components/AuthorPicker";
 import { useForm } from "react-hook-form";
 import * as zod from "zod";
+import { useTypedDispatch } from "@/store";
+import { addEntry as addBook } from "@/store/slices/bookSlice";
+import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "@/components/ui/use-toast";
 export const AddBookForm = () => {
+  const dispatch = useTypedDispatch();
+
+  const { toast } = useToast();
+
   const formSchema = zod.object({
     name: zod
       .string()
       .min(1, { message: "Слишком короткое название" })
       .max(250, { message: "Слишком длинное название" }),
-    author: zod.string().min(1).max(new Date().getFullYear()),
-    year: zod.number(),
+    author: zod.string().min(1),
+    year: zod
+      .number()
+      .gte(-3000, { message: "too small" })
+      .lte(new Date().getFullYear(), { message: "too big" }),
   });
 
   const form = useForm<zod.infer<typeof formSchema>>({
@@ -40,7 +51,14 @@ export const AddBookForm = () => {
   });
 
   const onSubmit = (values: zod.infer<typeof formSchema>) => {
-    console.log(values);
+    dispatch(addBook(values)).then(() => {
+      toast({
+        title: "Готово!",
+        description: "Книга успешно добавлена",
+      });
+
+      form.reset();
+    });
   };
 
   return (
@@ -106,6 +124,7 @@ export const AddBookForm = () => {
           </CardFooter>
         </Card>
       </form>
+      <Toaster />
     </Form>
   );
 };

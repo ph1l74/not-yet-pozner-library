@@ -21,6 +21,7 @@ import {
 import { useTypedDispatch, useTypedSelector } from "@/store";
 import { FormItem } from "@/components/ui/form";
 import { UseFormReturn } from "react-hook-form";
+import { useToast } from "../ui/use-toast";
 
 type AuthorPickerType = {
   form: UseFormReturn<{ author: string; name: string; year: number }>;
@@ -31,6 +32,7 @@ export const AuthorPicker: FC<AuthorPickerType> = ({ form }) => {
   const [value, setValue] = useState("");
   const [input, setInput] = useState("");
   const asyncDispatch = useTypedDispatch();
+  const { toast } = useToast();
   const authors = useTypedSelector((data) => data.authors.authors);
 
   useEffect(() => {
@@ -52,6 +54,10 @@ export const AuthorPicker: FC<AuthorPickerType> = ({ form }) => {
       onFormChange("");
       setOpen(false);
       asyncDispatch(getAllAuthors());
+      toast({
+        title: "Готово!",
+        description: "Автор успешно добавлен",
+      });
     });
   };
 
